@@ -1,15 +1,14 @@
 'use strict';
 
-
 describe('Stream', function () {
-    var Stream, onError, onEvent, stream, _, curry;
+    var Stream, onError, onEvent, stream, _, curry, compose;
 
     beforeEach(function () {
         Stream = require('../../lib/stream');
         onEvent = jasmine.createSpy('event');
         onError = jasmine.createSpy('error');
         _ = require('../../lib/utilities');
-        curry = require('curry');
+        compose = require('../../lib/compose');
     });
 
     describe('initialisation', function () {
@@ -58,9 +57,17 @@ describe('Stream', function () {
             newStream.append({});
             expect(onEvent).toHaveBeenCalledWith({});
         });
+
+        it('should take curried arguments', function () {
+            newStream = Stream.filter(_.i)(stream);
+            newStream.append(true);
+            newStream.append(false);
+            expect(onEvent).toHaveBeenCalledWith(true);
+            expect(onEvent).not.toHaveBeenCalledWith(false);
+        });
     });
 
-    xdescribe('composition', function () {
+    describe('composition', function () {
         it('should compose nicly', function () {
             function add1(x){
                 return x + 1;
@@ -70,43 +77,16 @@ describe('Stream', function () {
                 return 2 * x;
             }
 
-            stream = Stream.map(double, Stream.map(add1, onError, onEvent));
+            var pipe = compose(
+                Stream.map(add1),
+                Stream.map(double),
+                Stream.map(add1)
+            )
+
+            stream = pipe(Stream.create(onError, onEvent));
             stream.append(2)
-            expect(onEvent).toHaveBeenCalledWith(5)
-
+            expect(onEvent).toHaveBeenCalledWith(7)
         });
 
-        it('second composition', function () {
-            var cmap = curry.to(2, Stream.map);
-            function add1(x){
-                return x + 1;
-            }
-
-            function double(x){
-                return 2 * x;
-            }
-
-            var stream = compose([
-                cmap(add1),
-                cmap(double)  
-            ])(Stream.create(onError, onEvent));
-
-            stream.append(1);
-            expect(onEvent).toHaveBeenCalledWith(4)
-        });
-
-        it('curried', function () {
-            var cmap = curry.to(2, Stream.map);
-            function add1(x){
-                return x + 1;
-            }
-
-            function double(x){
-                return 2 * x;
-            }
-            var stream = cmap(add1, Stream.create(onError, onEvent));
-            stream.append(2);
-            expect(onEvent).toHaveBeenCalledWith(3)
-        });
     });
 });
