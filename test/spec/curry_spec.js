@@ -1,5 +1,5 @@
 describe('Curry', function () {
-    var curry, addPair;
+    var curry, addPair, addThree, joinAll;
     beforeEach(function () {
         curry = require('../../lib/curry');
         addPair = function(a, b) {
@@ -8,6 +8,10 @@ describe('Curry', function () {
 
         addThree = function(a, b, c) {
             return a + b + c;
+        }
+
+        joinAll = function () {
+            return Array.prototype.join.call(arguments, '');
         }
     })
 
@@ -34,5 +38,10 @@ describe('Curry', function () {
     it('should pass empty calls', function () {
         var curried = curry(addPair);
         expect(curried(1)()(2)).toEqual(3)        
+    });
+
+    it('should accept and optional length argument', function () {
+        var curried = curry(4, joinAll);
+        expect(curried('a')('b')('c', 'd')).toEqual('abcd');
     })
 });
