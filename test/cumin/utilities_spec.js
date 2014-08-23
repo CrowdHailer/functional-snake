@@ -3,7 +3,7 @@
 describe('Utilities', function () {
     var _;
     beforeEach(function () {
-        _ = require('../../lib/utilities');
+        _ = require('../../lib/cumin/utilities');
     })
 
     describe('Constant', function () {

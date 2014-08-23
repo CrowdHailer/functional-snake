@@ -1,7 +1,7 @@
 describe('Curry', function () {
     var curry, addPair, addThree, joinAll;
     beforeEach(function () {
-        curry = require('../../lib/curry');
+        curry = require('../../lib/cumin/curry');
         addPair = function(a, b) {
             return a + b;
         }

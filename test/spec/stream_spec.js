@@ -7,8 +7,8 @@ describe('Stream', function () {
         Stream = require('../../lib/stream');
         onEvent = jasmine.createSpy('event');
         onError = jasmine.createSpy('error');
-        _ = require('../../lib/utilities');
-        compose = require('../../lib/compose');
+        _ = require('../../lib/cumin/utilities');
+        compose = require('../../lib/cumin/compose');
     });
 
     describe('initialisation', function () {

@@ -2,7 +2,7 @@ describe('Compose', function () {
     var compose, dummy, combined;
 
     beforeEach(function () {
-        compose = require('../../lib/compose');
+        compose = require('../../lib/cumin/compose');
         dummy = jasmine.createSpy();
     });
 

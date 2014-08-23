@@ -1,14 +1,12 @@
 'use strict';
 
 describe('Stream', function () {
-    var Stream, onError, onEvent, _, compose, stream, bean;
+    var Stream, onError, onEvent, stream, bean;
 
     beforeEach(function () {
         Stream = require('../../lib/stream');
         onEvent = jasmine.createSpy('event');
         onError = jasmine.createSpy('error');
-        _ = require('../../lib/utilities');
-        compose = require('../../lib/compose');
         bean = require('bean');
     });
 
