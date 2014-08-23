@@ -14,6 +14,17 @@ gulp.task('buildTest', function () {
         .pipe(connect.reload());
 });
 
+gulp.task('build', function () {
+    var js = gulp.src('app/js/index.js')
+        .pipe(browserify());
+
+    var html = gulp.src('app/index.html');
+
+    merge(html, js)
+        .pipe(gulp.dest('./tmp/'))
+        .pipe(connect.reload());
+});
+
 gulp.task('serve', function () {
     connect.server({
         root: ['tmp', 'test'],
@@ -26,4 +37,9 @@ gulp.task('watch', function () {
     gulp.watch(['./test/**/*', './lib/**/*'], ['buildTest']);
 });
 
+gulp.task('watchMain', function () {
+    gulp.watch(['app/**/*', 'lib/**/*'], ['build'])
+});
+
 gulp.task('test', ['buildTest', 'serve', 'watch']);
+gulp.task('default', ['build', 'serve', 'watchMain']);

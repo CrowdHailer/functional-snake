@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div style="height:500px;width:1200px;background-color:red">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6000 2500">
+            <circle cx="200" cy="200" r="50"/>
+        </svg>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+    <script>
+        // var VECTORS = _.peruse({
+        //     117: {x: -50, y: -86}, // u
+        //     105: {x: 50, y: -86}, // i
+        //     107: {x: 100, y: 0}, // k
+        //     109: {x: 50, y: 86}, // m
+        //     110: {x: -50, y: 86}, // n
+        //     104: {x: -100, y: 0}, // h
+        // })
+
+        // var add = function(p1, p2){
+        //     return {x: p1.x + p2.x, y: p1.y + p2.y}
+        // }
+
+        // var makeCircles = function (array) {
+        //     var string = '';
+        //     array.forEach(function(pos) {
+        //         string += '<circle cx="' + pos.x + '" cy="' + pos.y + '" r="70"/>'
+        //     });
+        //     $('svg').innerHTML = string
+        // }
+
+        // Stream.fromEvents('keypress', document)
+        //     .map(_.dot('keyCode'))
+        //     .map(VECTORS)
+        //     .filter(_.I)
+        //     .reduce(add, {x: 200, y: 200})
+        //     .take(7)
+        //     .forEach(makeCircles);
+
+    </script>
+</body>
+</html>
