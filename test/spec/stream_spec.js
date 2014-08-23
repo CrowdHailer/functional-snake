@@ -25,6 +25,14 @@ describe('Stream', function () {
             stream.append({});
             expect(onEvent).toHaveBeenCalledWith(1);
         });
+
+        it('should work with existing stream', function () {
+            var x = function () { return 1; }
+            stream = Stream.create(onError, onEvent);
+            var newStream = Stream.map(x, stream);
+            newStream.append({});
+            expect(onEvent).toHaveBeenCalledWith(1);
+        });
     });
 
     describe('filter', function () {
