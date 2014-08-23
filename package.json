@@ -24,6 +24,7 @@
     "jslint": "^0.6.2"
   },
   "dependencies": {
-    "curry": "^1.2.0"
+    "curry": "^1.2.0",
+    "bean": "^1.0.14"
   }
 }
