@@ -17,4 +17,13 @@ describe('Stream', function () {
             expect(onEvent).toHaveBeenCalledWith(obj);
         });
     });
+
+    describe('map', function () {
+        it('should map each event', function () {
+            var x = function () { return 1; }
+            stream = Stream.map(x, onError, onEvent);
+            stream.append({});
+            expect(onEvent).toHaveBeenCalledWith(1);
+        });
+    });
 });
