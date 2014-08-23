@@ -2,9 +2,9 @@ console.log('hello');
 
 window.$ = document.querySelector.bind(document);
 
-var _ = require('../../lib/utilities');
+var _ = require('../../lib/cumin/utilities');
 _.dot = require('cumin-dot');
-var curry = require('../../lib/curry');
+var curry = require('../../lib/cumin/curry');
 
 var VECTORS = {
     117: {x: -50, y: -86}, // u
