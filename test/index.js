@@ -1,6 +1,8 @@
 console.log('starting tests');
 
 require('./spec/stream_spec');
+require('./spec/map_spec');
+require('./spec/filter_spec');
 require('./spec/merge_spec');
 require('./spec/fromEvent_spec');
 require('./spec/reduce_spec');
