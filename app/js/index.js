@@ -23,8 +23,25 @@ var stream = Stream.create(function (err) {
 }, function (evt) {
     console.log(evt);
     socket.emit('data', evt);
+});
+
+Stream.fromEvents('keypress', document,
+    Stream.map(_.dot('keyCode'), stream)
+    );
+
+var request = require('browser-request');
+var url = 'http://londonlayout-line-status.herokuapp.com/';
+
+var responses = Stream.create(function (err) {
+    console.warn(err);
+}, function (evt) {
+    console.log(evt);
 })
 
-Stream.fromEvents('keypress', document, 
-    Stream.map(_.dot('keyCode'), stream)
-);
+window.requests = Stream.create(function (err) {
+    console.warn(err);
+}, function (evt) {
+    request(url, function (err, resp, data) {
+        responses.append(resp);
+    });
+});
