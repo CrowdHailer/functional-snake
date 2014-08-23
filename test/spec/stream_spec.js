@@ -1,5 +1,11 @@
 'use strict';
 
+function k (K) {
+    return function () {
+        return K;
+    };
+}
+
 describe('Stream', function () {
     var Stream, onError, onEvent, stream;
 
@@ -20,16 +26,14 @@ describe('Stream', function () {
 
     describe('map', function () {
         it('should map each event', function () {
-            var x = function () { return 1; }
-            stream = Stream.map(x, onError, onEvent);
+            stream = Stream.map(k(1), onError, onEvent);
             stream.append({});
             expect(onEvent).toHaveBeenCalledWith(1);
         });
 
         it('should work with existing stream', function () {
-            var x = function () { return 1; }
             stream = Stream.create(onError, onEvent);
-            var newStream = Stream.map(x, stream);
+            var newStream = Stream.map(k(1), stream);
             newStream.append({});
             expect(onEvent).toHaveBeenCalledWith(1);
         });
@@ -37,15 +41,13 @@ describe('Stream', function () {
 
     describe('filter', function () {
         it('should not pass each false event', function () {
-            var x = function () { return false; }
-            stream = Stream.filter(x, onError, onEvent);
+            stream = Stream.filter(k(false), onError, onEvent);
             stream.append({});
             expect(onEvent).not.toHaveBeenCalled();
         });
 
         it('should pass each true event', function () {
-            var x = function () { return true; }
-            stream = Stream.filter(x, onError, onEvent);
+            stream = Stream.filter(k(true), onError, onEvent);
             stream.append({});
             expect(onEvent).toHaveBeenCalledWith({});
         });
