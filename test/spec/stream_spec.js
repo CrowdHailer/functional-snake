@@ -1,14 +1,14 @@
 'use strict';
 
-var Stream, onError, onEvent, stream;
-
-beforeEach(function () {
-    Stream = require('../../lib/stream');
-    onEvent = jasmine.createSpy('event');
-    onError = jasmine.createSpy('error');
-});
-
 describe('Stream', function () {
+    var Stream, onError, onEvent, stream;
+
+    beforeEach(function () {
+        Stream = require('../../lib/stream');
+        onEvent = jasmine.createSpy('event');
+        onError = jasmine.createSpy('error');
+    });
+
     describe('initialisation', function () {
         it('should append events to subscribed function', function () {
             var obj = {};
@@ -24,6 +24,22 @@ describe('Stream', function () {
             stream = Stream.map(x, onError, onEvent);
             stream.append({});
             expect(onEvent).toHaveBeenCalledWith(1);
+        });
+    });
+
+    describe('filter', function () {
+        it('should not pass each false event', function () {
+            var x = function () { return false; }
+            stream = Stream.filter(x, onError, onEvent);
+            stream.append({});
+            expect(onEvent).not.toHaveBeenCalled();
+        });
+
+        it('should pass each true event', function () {
+            var x = function () { return true; }
+            stream = Stream.filter(x, onError, onEvent);
+            stream.append({});
+            expect(onEvent).toHaveBeenCalledWith({});
         });
     });
 });
