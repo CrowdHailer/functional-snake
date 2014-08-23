@@ -43,5 +43,18 @@ describe('Curry', function () {
     it('should accept and optional length argument', function () {
         var curried = curry(4, joinAll);
         expect(curried('a')('b')('c', 'd')).toEqual('abcd');
-    })
+    });
+
+    it('should work twice', function () {
+        var curried = curry(addPair);
+        expect(curried(2)(3)).toEqual(5);
+        var curried = curry(addPair);
+        expect(curried(2)(3)).toEqual(5);
+    });
+
+    it('should be usable twice', function () {
+        var curried = curry(addPair);
+        expect(curried(2)(3)).toEqual(5);
+        expect(curried(1)(0)).toEqual(1);
+    });
 });
