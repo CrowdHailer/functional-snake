@@ -56,15 +56,20 @@ describe('Stream', function () {
     });
 
     describe('filter', function () {
+        var newStream
+        beforeEach(function () {
+            stream = Stream.create(onError, onEvent);
+        });
+
         it('should not pass each false event', function () {
-            stream = Stream.filter(k(false), onError, onEvent);
-            stream.append({});
+            newStream = Stream.filter(k(false), stream);
+            newStream.append({});
             expect(onEvent).not.toHaveBeenCalled();
         });
 
         it('should pass each true event', function () {
-            stream = Stream.filter(k(true), onError, onEvent);
-            stream.append({});
+            newStream = Stream.filter(k(true), stream);
+            newStream.append({});
             expect(onEvent).toHaveBeenCalledWith({});
         });
     });
