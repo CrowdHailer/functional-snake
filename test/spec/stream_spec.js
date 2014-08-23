@@ -6,6 +6,22 @@ function k (K) {
     };
 }
 
+function adjoin(f) {
+    return function (g) {
+      return function () {
+        return f.call(this, (g.apply(this, arguments)));
+      };
+    };
+  }
+
+function compose(arr) {
+    return function () {
+        return arr[0].call(this, (arr[1].apply(this, arguments)));
+    };
+}
+
+var curry = require('curry');
+
 describe('Stream', function () {
     var Stream, onError, onEvent, stream;
 
@@ -50,6 +66,56 @@ describe('Stream', function () {
             stream = Stream.filter(k(true), onError, onEvent);
             stream.append({});
             expect(onEvent).toHaveBeenCalledWith({});
+        });
+    });
+
+    describe('composition', function () {
+        it('should compose nicly', function () {
+            function add1(x){
+                return x + 1;
+            }
+
+            function double(x){
+                return 2 * x;
+            }
+
+            stream = Stream.map(double, Stream.map(add1, onError, onEvent));
+            stream.append(2)
+            expect(onEvent).toHaveBeenCalledWith(5)
+
+        });
+
+        it('second composition', function () {
+            var cmap = curry.to(2, Stream.map);
+            function add1(x){
+                return x + 1;
+            }
+
+            function double(x){
+                return 2 * x;
+            }
+
+            var stream = compose([
+                cmap(add1),
+                cmap(double)  
+            ])(Stream.create(onError, onEvent));
+
+            stream.append(1);
+            expect(onEvent).toHaveBeenCalledWith(4)
+        });
+
+        it('curried', function () {
+            var cmap = curry.to(2, Stream.map);
+            function add1(x){
+                return x + 1;
+            }
+
+            function double(x){
+                return 2 * x;
+            }
+            var stream = cmap(add1, Stream.create(onError, onEvent));
+            stream.append(2);
+            expect(onEvent).toHaveBeenCalledWith(3)
         });
     });
 });
