@@ -6,4 +6,5 @@ require('./spec/fromEvent_spec');
 require('./spec/compose_spec');
 require('./spec/curry_spec');
 require('./spec/times_spec');
+require('./spec/peruse_spec');
 require('./spec/utilities_spec');
