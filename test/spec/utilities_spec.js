@@ -20,20 +20,5 @@ describe('Utilities', function () {
         });
     });
 
-    describe('Times', function () {
-        // Use optional arguments in call
-        it('should call a function multiple times', function () {
-            var dummy = jasmine.createSpy();
-            _.times(3, dummy);
-            expect(dummy.calls.count()).toEqual(3);
-        });
-
-        it('should pass index', function () {
-            var dummy = jasmine.createSpy();
-            _.times(3, dummy);
-            expect(dummy).toHaveBeenCalledWith(0);
-            expect(dummy).toHaveBeenCalledWith(2);
-        });
-    });
 });
 
