@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Stream', function () {
-    var Stream, onError, onEvent, stream, curry;
+    var Stream, onError, onEvent, stream;
 
     beforeEach(function () {
         Stream = require('../../lib/stream');
@@ -12,7 +12,7 @@ describe('Stream', function () {
     describe('initialisation', function () {
         it('should append events to subscribed function', function () {
             var obj = {};
-            stream = Stream.create(onError, onEvent)
+            stream = Stream.create(onError, onEvent);
             stream.append(obj);
             expect(onEvent).toHaveBeenCalledWith(obj);
         });

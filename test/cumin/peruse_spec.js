@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Peruse', function () {
     var peruse, obj, config;
 

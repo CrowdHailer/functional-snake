@@ -10,7 +10,7 @@ describe('Reducing a stream', function () {
         stream = Stream.create(onError, onEvent);
         add = function (a, b) {
             return a + b;
-        }
+        };
     });
 
     describe('Starting with initial value', function () {
@@ -23,13 +23,13 @@ describe('Reducing a stream', function () {
         it('should add events to a running total', function () {
             var newStream = Stream.reduce(add, 0, stream);
             newStream.append(1);
-            onEvent.calls.reset()
+            onEvent.calls.reset();
             newStream.append(2);
             expect(onEvent).toHaveBeenCalledWith(3);
         });
 
         it('should pass the seed value downstream', function () {
-            var newStream = Stream.reduce(add, 0, stream);
+            Stream.reduce(add, 0, stream);
             expect(onEvent).toHaveBeenCalledWith(0);
         });
     });

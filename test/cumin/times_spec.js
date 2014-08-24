@@ -5,9 +5,11 @@ describe('Times', function () {
     // Maintain context
     // curry
     var times;
+
     beforeEach(function () {
         times = require('../../lib/cumin/times');
-    })
+    });
+
     it('should call a function multiple times', function () {
         var dummy = jasmine.createSpy();
         times(3, dummy);

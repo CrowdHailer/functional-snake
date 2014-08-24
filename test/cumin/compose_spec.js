@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Compose', function () {
     var compose, dummy, combined;
 
@@ -38,7 +40,7 @@ describe('Compose', function () {
             return 2 * x;
         }, function (x) {
             return x + 1;
-        })
+        });
         expect(combined(3)).toEqual(8);
     });
 });

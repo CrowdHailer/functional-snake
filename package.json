@@ -21,7 +21,9 @@
     "gulp-connect": "^2.0.6",
     "gulp-browserify": "^0.5.0",
     "merge-stream": "^0.1.5",
-    "jslint": "^0.6.2"
+    "jslint": "^0.6.2",
+    "gulp-jslint": "^0.1.6",
+    "xtend": "^4.0.0"
   },
   "dependencies": {
     "curry": "^1.2.0",

@@ -13,11 +13,11 @@ describe('Stream', function () {
     describe('from events', function () {
         it('should pass events', function () {
             stream = Stream.create(onError, onEvent);
-            var obj = {};
-            var pebble = {};
+            var obj = {},
+                pebble = {};
             Stream.fromEvents('test', obj, stream);
             bean.fire(obj, 'test', pebble);
             expect(onEvent).toHaveBeenCalledWith(pebble);
-        })
-    })
+        });
+    });
 });

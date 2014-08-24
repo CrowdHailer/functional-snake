@@ -1,19 +1,21 @@
+'use strict';
+
 describe('Curry', function () {
     var curry, addPair, addThree, joinAll;
     beforeEach(function () {
         curry = require('../../lib/cumin/curry');
-        addPair = function(a, b) {
+        addPair = function (a, b) {
             return a + b;
-        }
+        };
 
-        addThree = function(a, b, c) {
+        addThree = function (a, b, c) {
             return a + b + c;
-        }
+        };
 
         joinAll = function () {
             return Array.prototype.join.call(arguments, '');
-        }
-    })
+        };
+    });
 
     it('should curry a 2 argument function', function () {
         var curried = curry(addPair);
@@ -37,7 +39,7 @@ describe('Curry', function () {
 
     it('should pass empty calls', function () {
         var curried = curry(addPair);
-        expect(curried(1)()(2)).toEqual(3)        
+        expect(curried(1)()(2)).toEqual(3);
     });
 
     it('should accept and optional length argument', function () {
@@ -48,7 +50,7 @@ describe('Curry', function () {
     it('should work twice', function () {
         var curried = curry(addPair);
         expect(curried(2)(3)).toEqual(5);
-        var curried = curry(addPair);
+        curried = curry(addPair);
         expect(curried(2)(3)).toEqual(5);
     });
 

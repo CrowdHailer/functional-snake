@@ -2,6 +2,8 @@ var gulp = require('gulp');
 var browserify = require('gulp-browserify');
 var connect = require('gulp-connect');
 var merge = require('merge-stream');
+var extend = require('xtend');
+var jslint = require('gulp-jslint');
 
 gulp.task('buildTest', function () {
     var js = gulp.src('test/index.js')
@@ -31,6 +33,28 @@ gulp.task('serve', function () {
         port: 8080,
         livereload: true
     });
+});
+
+gulp.task('lint', function () {
+    var lintSettings = require('./.jslint.json');
+    var source = gulp.src(['lib/**/*.js'])
+        .pipe(jslint(lintSettings));
+
+    var tests = gulp.src(['test/**/*.js', '!test/bower_components/**/*'])
+        .pipe(jslint(extend(lintSettings, {
+            predef: [
+                'jasmine',
+                'describe',
+                'xdescribe',
+                'beforeEach',
+                'afterEach',
+                'expect',
+                'it',
+                'xit'
+            ]
+        })));
+
+    return merge(source, tests)
 });
 
 gulp.task('watch', function () {
